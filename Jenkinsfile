@@ -23,13 +23,13 @@ pipeline {
             steps {
                 echo "Running pytest from:"
                 sh 'pwd'
-                // The '|| true' ensures Jenkins doesn't fail if no tests are collected
-                sh 'python3 -m pytest -v . || true'
+                // Run pytest with verbose output
+                sh 'python3 -m pytest -v'
             }
             post {
                 always {
-                    // Collect test results if any (optional)
-                    junit '**/test-*.xml'
+                    // Optional: collect test reports if you generate XML reports
+                    echo "Tests completed"
                 }
             }
         }
@@ -43,7 +43,7 @@ pipeline {
             echo "✅ All stages completed successfully!"
         }
         failure {
-            echo "❌ Pipeline failed. Check test collection and workspace."
+            echo "❌ Pipeline failed. Check test results!"
         }
     }
 }
